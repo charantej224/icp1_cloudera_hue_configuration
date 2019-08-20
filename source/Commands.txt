@@ -1,0 +1,24 @@
+## Create a directory in HDFS
+hadoop fs -mkdir /user/cloudera/charan
+
+## Download data sets from below paths
+Dataset1: https://umkc.box.com/s/ums4eav9ms5ejlyo7m5qnruhq917zafr
+Dataset2: https://umkc.box.com/s/gwha5sfufjat6o1cg2wcbturni9fsvmr
+
+## adding dataset1 - shakespeare.txt into HDFS system
+hadoop fs -put shakespeare.txt /user/cloudera/charan
+
+## Appended file
+hdfs dfs -appendToFile word_list.txt /user/cloudera/charan/shakespeare.txt
+
+## extract top 5 and last 5 lines and create a data set
+hdfs dfs -cat /user/cloudera/charan/shakespeare.txt | head -5 >> truncated_file.txt
+hdfs dfs -cat /user/cloudera/charan/shakespeare.txt | tail -5 >> truncated_file.txt 
+
+## Now remove the file (as its a appended content of two files)
+hdfs dfs -rm /user/cloudera/charan/shakespeare.txt
+
+## put the original file into HDFS system and then append using multiple arguements.
+hadoop fs -put shakespeare.txt /user/cloudera/charan/
+hdfs dfs -appendToFile word_list.txt truncated_file.txt /user/cloudera/charan/shakespeare.txt
+
